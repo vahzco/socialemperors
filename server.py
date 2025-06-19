@@ -2,6 +2,7 @@ print (" [+] Loading basics...")
 import os
 import json
 import urllib
+import socket
 if os.name == 'nt':
     os.system("color")
     os.system("title Social Empires Server")
@@ -27,8 +28,22 @@ from constants import Constant
 from quests import get_quest_map
 from bundle import ASSETS_DIR, STUB_DIR, TEMPLATES_DIR, BASE_DIR
 
-host = '127.0.0.1'
+import socket
+
+def get_local_ip():
+    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    try:
+        s.connect(("8.8.8.8", 80))
+        ip = s.getsockname()[0]
+    except Exception:
+        ip = "127.0.0.1"
+    finally:
+        s.close()
+    return ip
+
+host = '0.0.0.0'
 port = 5050
+SERVER_IP = get_local_ip()
 
 app = Flask(__name__, template_folder=TEMPLATES_DIR)
 
@@ -75,7 +90,7 @@ def play():
     GAMEVERSION = session['GAMEVERSION']
     print("[PLAY] USERID:", USERID)
     print("[PLAY] GAMEVERSION:", GAMEVERSION)
-    return render_template("play.html", save_info=save_info(USERID), serverTime=timestamp_now(), friendsInfo=fb_friends_str(USERID), version=version_name, GAMEVERSION=GAMEVERSION, SERVERIP=host)
+    return render_template("play.html", save_info=save_info(USERID), serverTime=timestamp_now(), friendsInfo=fb_friends_str(USERID), version=version_name, GAMEVERSION=GAMEVERSION, SERVERIP=SERVER_IP)
 
 @app.route("/ruffle.html")
 def ruffle():
@@ -93,7 +108,7 @@ def ruffle():
     GAMEVERSION = session['GAMEVERSION']
     print("[RUFFLE] USERID:", USERID)
     print("[RUFFLE] GAMEVERSION:", GAMEVERSION)
-    return render_template("ruffle.html", save_info=save_info(USERID), serverTime=timestamp_now(), version=version_name, GAMEVERSION=GAMEVERSION, SERVERIP=host)
+    return render_template("ruffle.html", save_info=save_info(USERID), serverTime=timestamp_now(), version=version_name, GAMEVERSION=GAMEVERSION, SERVERIP=SERVER_IP)
 
 
 @app.route("/new.html")
