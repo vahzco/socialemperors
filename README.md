@@ -8,7 +8,9 @@ This project is dedicated to preserving this Flash game so that it's not lost to
 
 ---
 
-## Releases
+## Localhost Releases
+> [!NOTE]  
+> Access through `http://127.0.0.1:5050/` on these.
 
 | Version | Release date | Source | Download |
 | --- | --- | --- | --- |
@@ -29,9 +31,15 @@ This project is dedicated to preserving this Flash game so that it's not lost to
 - Extract the downloaded zip file to a suitable location.
 
 ## How to Play
-
-- Run the *social-emperors* executable.
-- Open your flash browser and navigate to `http://127.0.0.1:5050/`.
+- **For LAN:** Build by running the `build.bat` script in `socialemperors/build`.
+- Run the *social-emperors* executable – under `socialemperors/build/dist` after build.
+- Open your flash browser and navigate to:
+  - `http://127.0.0.1:5050/` – up to version `alpha 0.03a`
+  - Your host device Local IP adress and Port (`5050` by default) – e.g. 192.168.1.XXX:5050.
+> [!WARNING]
+> - `http://127.0.0.1:5050/` doesn't currently work when the Host has a defined Local IP.
+> - The changes allowing for Local Network play have not been tested when trying to run offline on the host device without a Local IP.
+> - **But** it works without a network connection if it still _remembers_ the last assigned IP, which can then be used to access the game.
 
 :information_source: To play on GNU/Linux check [this page](LINUX.md).
 
