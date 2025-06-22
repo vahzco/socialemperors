@@ -74,10 +74,28 @@
 					<p style="font-size:13px; display: inline;">Or </p>
 					{% endif %}
 					<p style="font-size:13px; display: inline;">
-						<b><a href="/new.html">Create a new empire</a></b>
+						<b><a id="newEmpireLink" href="/new.html">Create a new empire</a></b>
 					</p>
 				</div>
 			</div>
 		</div>
 	</body>
 </html>
+
+<script>
+// Get references to the select element and the link
+const gameVersionSelect = document.getElementById('GAMEVERSION');
+const newEmpireLink = document.getElementById('newEmpireLink');
+
+// Function to update the href with the selected version
+function updateNewEmpireLink() {
+    const selectedVersion = gameVersionSelect.value;
+    newEmpireLink.href = `/new.html?GAMEVERSION=${encodeURIComponent(selectedVersion)}`;
+}
+
+// Set initial href
+updateNewEmpireLink();
+
+// Update href whenever the selection changes
+gameVersionSelect.addEventListener('change', updateNewEmpireLink);
+</script>

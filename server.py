@@ -90,7 +90,7 @@ def play():
     GAMEVERSION = session['GAMEVERSION']
     print("[PLAY] USERID:", USERID)
     print("[PLAY] GAMEVERSION:", GAMEVERSION)
-    return render_template("play.html", save_info=save_info(USERID), serverTime=timestamp_now(), friendsInfo=fb_friends_str(USERID), version=version_name, GAMEVERSION=GAMEVERSION, SERVERIP=SERVER_IP)
+    return render_template("play.html", save_info=save_info(USERID), serverTime=timestamp_now(), friendsInfo=fb_friends_str(USERID), version=version_name, GAMEVERSION=GAMEVERSION, SERVERIP=SERVER_IP, PORT=port)
 
 @app.route("/ruffle.html")
 def ruffle():
@@ -108,13 +108,14 @@ def ruffle():
     GAMEVERSION = session['GAMEVERSION']
     print("[RUFFLE] USERID:", USERID)
     print("[RUFFLE] GAMEVERSION:", GAMEVERSION)
-    return render_template("ruffle.html", save_info=save_info(USERID), serverTime=timestamp_now(), version=version_name, GAMEVERSION=GAMEVERSION, SERVERIP=SERVER_IP)
+    return render_template("ruffle.html", save_info=save_info(USERID), serverTime=timestamp_now(), version=version_name, GAMEVERSION=GAMEVERSION, SERVERIP=SERVER_IP, PORT=port)
 
 
 @app.route("/new.html")
 def new():
+    game_version = request.args.get('GAMEVERSION', 'SocialEmpires0926bsec.swf') 
     session['USERID'] = new_village()
-    session['GAMEVERSION'] = "SocialEmpires0926bsec.swf"
+    session['GAMEVERSION'] = game_version
     return redirect("play.html")
 
 @app.route("/crossdomain.xml")
